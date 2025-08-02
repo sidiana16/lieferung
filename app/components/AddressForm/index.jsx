@@ -26,7 +26,7 @@ export default function AddressForm({ formData, handleChange, handleSave, closeM
                 />
             </div>
             <div className="mb-4">
-                <label className="block mb-1 text-sm">Номер дома!</label>
+                <label className="block mb-1 text-sm">Номер дома</label>
                 <input
                     type="text"
                     name="house_number"
