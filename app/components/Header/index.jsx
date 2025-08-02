@@ -1,6 +1,7 @@
 import Link from "next/link";
 import GetLocationComponent from "../GetLocationComponent";
 
+
 export default function Header() {
 
     return (
@@ -16,6 +17,7 @@ export default function Header() {
                 </Link>
                 <div className='flex justify-end items-center gap-6 max-md:pr-2 '>
                     <GetLocationComponent />
+
                 </div>
             </div>
         </div>

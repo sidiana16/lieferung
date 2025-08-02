@@ -5,11 +5,22 @@ import { getLocation } from '@/app/helpers';
 import AddressDisplay from '../AddressDisplay';
 import AddressList from '../AddressList';
 import AddressForm from '../AddressForm';
+import { useAddresseStore } from '@/app/store/addressesStore';
+import { useModalStore } from '@/app/store/modalStore';
+import SignInProfilSignOut from '../SignInProfilSignOut';
+
 
 
 export default function GetLocationComponent() {
-    const [address, setAddress] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const address = useAddresseStore((state) => state.address);
+    const setAddress = useAddresseStore((state) => state.setAddress);
+
+
+    const isModalOpen = useModalStore((state) => state.isModalOpen);
+    const setIsModalOpen = useModalStore((state) => state.setIsModalOpen);
+
+
     const [formData, setFormData] = useState({
         postcode: '',
         road: '',
@@ -18,6 +29,8 @@ export default function GetLocationComponent() {
     const [savedAddresses, setSavedAddresses] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
+
+
 
     useEffect(() => {
         const stored = localStorage.getItem("addresses");
@@ -41,7 +54,7 @@ export default function GetLocationComponent() {
         // Получаем адрес по геолокации
         getLocation((data) => {
             console.log('data: ', data);
-            
+
             // Проверяем, получены ли данные и не пустые ли они
             if (data?.address?.postcode && data?.address?.road && data?.address?.house_number) {
                 const newAddress = {
@@ -178,8 +191,11 @@ export default function GetLocationComponent() {
         }
     };
 
+
     return (
         <div>
+
+            <SignInProfilSignOut />
             <AddressDisplay address={address} openModal={() => setIsModalOpen(true)} />
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-xs">
